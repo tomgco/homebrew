@@ -12,6 +12,7 @@ class Harfbuzz < Formula
   depends_on :freetype
 
   def install
+    ENV.cxx += ' -stdlib=libstdc++' if ENV.compiler == :clang && MacOS.version >= :mavericks
     args = %W[--disable-dependency-tracking --prefix=#{prefix}]
     args << "--with-icu" if build.with? 'icu4c'
     system "./configure", *args
